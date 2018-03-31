@@ -1,9 +1,11 @@
 FROM node:alpine
 
 WORKDIR /usr/src/app
-EXPOSE 8080
+EXPOSE 3000
 
-COPY package*.json ./
+COPY app/package.json ./package.json
 RUN npm install
-COPY . .
+RUN npm install sequelize-cli -g
+
+COPY app ./
 CMD [ "npm", "start" ]

@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  base:
+    restart: unless-stopped
+    build: .
+
+  postgres:
+    restart: unless-stopped
+    image: postgres:9.5-alpine
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_DB: notnow
+
+  web:
+    restart: unless-stopped
+    extends: base
+    links:
+      - postgres
+    ports:
+      - '3000:3000'
+    environment:
+      DB_USER: user
+      DB_NAME: notnow
+    

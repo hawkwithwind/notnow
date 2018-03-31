@@ -21,6 +21,8 @@ services:
       - postgres
     ports:
       - '3000:3000'
+    volumes:
+      - ./data/notnow:/var/lib/notnow
     environment:
       DB_USER: user
       DB_NAME: notnow
